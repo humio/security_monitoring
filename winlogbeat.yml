@@ -143,6 +143,11 @@ winlogbeat.event_logs:
     event_id: 13, 12
   - name: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
     event_id: 2004, 2005, 2006, 2009, 2033
+    # event_id: 2004 This event is logged when a rule has been added to the Windows Firewall exception list
+    # event_id: 2005 This event is logged when a rule has been modified in the Windows Firewall exception list
+    # event_id: 2006 A rule has been deleted in the Windows Firewall exception list
+    # event_id: 2009 The Windows Firewall service failed to load Group Policy  
+    # event_id: 2033 All rules have been deleted from the Windows Firewall configuration on this computer  
   - name: Microsoft-Windows-SMBServer/Operational
   - name: Microsoft-Windows-Windows Defender/Operational
   - name: Microsot-Windows
