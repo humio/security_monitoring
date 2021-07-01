@@ -206,8 +206,8 @@ winlogbeat.event_logs:
   - name: Microsoft-Windows-WLAN-AutoConfig/Operational
     event_id: 8003, 10000, 10001, 8000, 8011, 8001, 11000, 11001, 11002, 12011, 12012, 12013, 8002, 11004, 11005, 11010, 11006
   - name: Microsoft-Windows-Partition/Diagnostic #present win10 1709+ logs USB/drive serials ref https://df-stream.com/2018/05/partition-diagnostic-event-log-and-usb-device-tracking-p1/    
-    event_id: 1006 
-# current config set for humio cloud
+    event_id: 1006
+  - name: Microsoft-Windows-PrintService/Operational # to detect CVE 2021-1675 attempts failed and successfull https://twitter.com/MalwareJake/status/1410421445608476679# current config set for humio cloud
 # trial here https://cloud.humio.com/
 # adjust to your need
   hosts: ["https://cloud.humio.com:443/api/v1/ingest/elastic-bulk"]
