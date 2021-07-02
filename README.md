@@ -5,11 +5,11 @@ Addtional sources have been added to provide data needed to detect or determine 
 
 ## Vision
 This project should provide an easy way to get started with collecting data from windowsbased platforms in order to 
-support SecOps and provide "forensic readiness" - before you need it, by having relevant monitoring in place before during and after a given IT securty incident.
+support SecOps and "forensic readiness" - before you need it. By having relevant monitoring in place before during and after a given IT security incident.
 
-Addtionally the data collected can be leveraged in conjuction with sigma rules from external sources or allow for custom quries and alerts to proactivly hunt for TTP in your infrastrucutue. 
+Addtionally the data collected can be leveraged in conjuction with sigma rules and allow for custom quries and alerts to proactivly hunt for TTP's in your infrastrucutue. 
 
-provide the capability to prove what did not happen, should there be a case where you want to "go back and validate" against a priviously IOC or exploit.
+Another thing we can provide is the capability to prove what did not happen, should there be a case where you want to "go back and validate" against new IOC data, or published exploit.
 
 Lastly we hope collecting the log data can help day to day hardning efforts or answer questions in relation discover root cause outside of SecOps use case. As this will allow you to know your infrastructure better than an adversary and thus gain leverage by being able to spot their activity in the inital phases of the cyber kill chain
 
