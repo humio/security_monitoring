@@ -194,7 +194,7 @@ winlogbeat.event_logs:
     event_id: 4103, 4104, 4105, 4106
   - name: Microsoft-Windows-SoftwareRestrictionPolicies
     event_id: 865, 866, 867, 868, 882
-  - name: Microsoft-Windows-Sysmon/Operational # must be installed and configured seperately via sysmon config file see inital comments above
+  - name: Microsoft-Windows-Sysmon/Operational # recommended config https://github.com/Neo23x0/sysmon-config  
   - name: User32
     event_id: 1074
   - name: Microsoft-Windows-WindowsUpdateClient/Operational
