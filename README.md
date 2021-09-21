@@ -1,6 +1,6 @@
 # Windows Best Practice Security Monitoring
 A Winlogbeat config that can form the basis of a security monitoring data collection effort.
-This is an example of a way to implement and operationalize the NSAcyber guidance on what to log on a windows based OS
+This is an example of a way to implement and operationalize the NSAcyber / CFCS guidance on what to log on a windows based OS
 Addtional sources have been added to provide data needed to detect or determine a possible compromise or misconfiguration.
 
 ## Vision
@@ -9,9 +9,9 @@ support SecOps and "forensic readiness" - before you need it. By having relevant
 
 Addtionally the data collected can be leveraged in conjuction with sigma rules and allow for custom quries and alerts to proactivly hunt for TTP's in your infrastrucutue. 
 
-Another thing we can provide is the capability to prove what did not happen, should there be a case where you want to "go back and validate" against new IOC data, or published exploit.
+Another thing we aim to provide is the capability to prove what did not happen Should there be a case where you want to "go back and validate" against new IOC data, published exploit being attempted (ex. via sigma rule) or determine how "deep" a given intrusion actually was.
 
-Lastly we hope collecting the log data can help day to day hardning efforts or answer questions in relation discover root cause outside of SecOps use case. As this will allow you to know your infrastructure better than an adversary and thus gain leverage by being able to spot their activity in the inital phases of the cyber kill chain
+Lastly we hope collecting the log data can help day to day hardning efforts or answer questions in relation discover root cause outside of SecOps use case. As this will allow you to know your infrastructure better than an adversary and thus gain leverage by being able to spot their activity in the inital phases of the cyber kill chain.
 
 ## Governance
 This project is maintained by employees at Humio ApS.
@@ -35,5 +35,6 @@ The active maintainers involved with this project include:
 
 # Reference
 https://github.com/nsacyber/Event-Forwarding-Guidance
+https://cfcs.dk/globalassets/cfcs/dokumenter/vejledninger/cfcs-vejledning-logning.pdf (in Danish)
 
 Make sure to read the notes within the config file itself at it contains changes that needs to be implemented in order to gain full value of the logs you are collecting and ensure that the relavant eventids are generated correctly prior to enabling the event forwarding
