@@ -142,10 +142,15 @@ winlogbeat.event_logs:
   #
   # Addtional log data sources
   #
+  - name: Microsoft-Windows-TerminalServices-RDPClient/Operational # https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics
+  - name: Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational # Added https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics  
+  # event_id: 1149 User authentication succeeded  
   - name: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational # Added https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics
+  - name: Microsoft-Windows-TerminalServices-LocalSessionManager/Operational # Added https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics  
+  # event_id: 21 Remote Desktop Services: Session login succeeded
+  # event_id: 22 Remote Desktop Services: Shell start notification received
   - name: Microsoft-Windows-Application-Experience/Program-Inventory # Added https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics
     event_id: 907, 908, 800, 905, 906
-  - name: Microsoft-Windows-TerminalServices-RDPClient/Operational # https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics
   - name: Microsoft-Windows-TaskScheduler/Operational
     event_id: 106, 107,108, 110, 140, 141, 142, 200 # added 107, 108, 110, 140 based on this https://www.cyprich.com/2017/03/29/common-task-scheduler-event-ids/
   - name: Microsoft-Windows-DNS-Client/Operational
