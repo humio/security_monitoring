@@ -188,6 +188,8 @@ winlogbeat.event_logs:
     event_id: 169, 800
   - name: Microsoft-Windows-PrintService/Operational
     event_id: 307
+  - name: Microsoft-Windows-PrintService/Admin
+    event_id: 808, 31017, 326 # https://msandbu.org/printnightmare-cve-2021-1675/  
   - name: Microsoft-Windows-PowerShell/Operational
     event_id: 4103, 4104, 4105, 4106
   - name: Microsoft-Windows-SoftwareRestrictionPolicies
