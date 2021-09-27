@@ -13,7 +13,7 @@ Another thing we aim to provide is the capability to prove what did not happen. 
 
 Lastly we hope collecting the log data can help day to day hardning efforts or answer questions in relation root cause analysis outside of SecOps use case. 
 
-knowing your infrastructure better than an adversary translates into leverage, as you become able to spot their activity in the inital phases of the cyber kill chain.
+Knowing your infrastructure better than an adversary translates into leverage, as you become able to spot their activity in the inital phases of the cyber kill chain.
 
 ## Governance
 This project is maintained by employees at Humio ApS.
