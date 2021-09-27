@@ -40,4 +40,6 @@ https://github.com/nsacyber/Event-Forwarding-Guidance
 
 https://cfcs.dk/globalassets/cfcs/dokumenter/vejledninger/cfcs-vejledning-logning.pdf (in Danish)
 
+https://github.com/JSCU-NL/logging-essentials
+
 Make sure to read the notes within the config file itself at it contains changes that needs to be implemented in order to gain full value of the logs you are collecting and ensure that the relavant eventids are generated correctly prior to enabling the event forwarding
