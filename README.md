@@ -3,7 +3,7 @@ A Winlogbeat config that can form the basis of a security monitoring data collec
 This is an example of a way to implement and operationalize the NSAcyber / CFCS guidance on what to log on a windows based OS
 Addtional sources have been added to provide data needed to support detection capability and identify and adress misconfiguration.
 
-!! Make sure to read the notes within the config file itself at it contains changes that needs to be implemented in order to gain full value of the logs you are collecting and ensure that the relavant eventids are generated correctly prior to enabling the event forwarding !!
+!! Make sure to read the notes within the config file itself at it contains changes that needs to be implemented in order to gain full value of the logs you are collecting and ensure that the relavant eventids are generated correctly prior to enabling the event forwarding. Remember to use the OSS Version of winlogbeat/logstash in conjuction with Humio !!
 
 ## Vision
 This project should provide an easy way to get started with collecting data from windowsbased platforms in order to 
