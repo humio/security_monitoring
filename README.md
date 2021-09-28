@@ -3,6 +3,8 @@ A Winlogbeat config that can form the basis of a security monitoring data collec
 This is an example of a way to implement and operationalize the NSAcyber / CFCS guidance on what to log on a windows based OS
 Addtional sources have been added to provide data needed to support detection capability and identify and adress misconfiguration.
 
+!! Make sure to read the notes within the config file itself at it contains changes that needs to be implemented in order to gain full value of the logs you are collecting and ensure that the relavant eventids are generated correctly prior to enabling the event forwarding !!
+
 ## Vision
 This project should provide an easy way to get started with collecting data from windowsbased platforms in order to 
 support SecOps and "Forensic Readiness" - before you need it, order for you to have it when you need it. By having relevant monitoring in place before during and after a given IT security incident.
@@ -42,4 +44,6 @@ https://cfcs.dk/globalassets/cfcs/dokumenter/vejledninger/cfcs-vejledning-lognin
 
 https://github.com/JSCU-NL/logging-essentials
 
-Make sure to read the notes within the config file itself at it contains changes that needs to be implemented in order to gain full value of the logs you are collecting and ensure that the relavant eventids are generated correctly prior to enabling the event forwarding
+https://github.com/SigmaHQ/sigma
+
+https://github.com/Neo23x0/sysmon-config
