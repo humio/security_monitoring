@@ -182,7 +182,7 @@ winlogbeat.event_logs:
     event_id: 903,904
   - name: Microsoft-Windows-AppLocker/EXE and DLL # usefull for collecting data prior to enforcing any applocker rules, implementing GPO that limit execution from temp folder etc.
     event_id: 8002, 8003, 8004
-  - name: Microsoft-Windows-AppLocker/MSI and Script # usefulle for collecting data prior to enforcing any block rules or implementing GPO that limits use of this feature
+  - name: Microsoft-Windows-AppLocker/MSI and Script # usefull for collecting data prior to enforcing any block rules or implementing GPO that limits use of this feature
     event_id: 8005, 8006, 8007
   - name: Microsoft-Windows-WinRM/Operational
   - name: Microsoft-Windows-WMI-Activity/Operational
