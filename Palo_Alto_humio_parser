@@ -1,4 +1,4 @@
-##paloalto humio parser
+##Palo_Alto_Humio_Parser
 ## FU fields are "future use" according to PaloAlto
 // CSV column names taken from https://docs.paloaltonetworks.com/pan-os/8-1/pan-os-admin/monitoring/use-syslog-for-monitoring/syslog-field-descriptions.html
 // Globalprotect column names taken from https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-admin/monitoring/use-syslog-for-monitoring/syslog-field-descriptions/globalprotect-log-fields/globalprotect-log-fields-for-pan-os-913-and-later-releases.html
