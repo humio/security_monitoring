@@ -36,18 +36,18 @@
 winlogbeat.event_logs:
   - name: Application
     event_id: 1518, 1511, 1000, 1001, 1002, 95, 1022, 1033
-    # Event_id: 1518 Create Profile failed
-    # Event_id: 1511 Temp profile Logon
-    # Event_id: 1000 App crash
-    # Event_id: 1001 WER Windows Error Reporting
-    # Event_id: 1002 Application Hang
-    # Event_id: 95 CA permissions Corrupted or Missing
-    # Event_id: 1022 New MSI file installed
-    # Event_id: 1033 New MSI file installed
+# Event_id: 1518 Create Profile failed
+# Event_id: 1511 Temp profile Logon
+# Event_id: 1000 App crash
+# Event_id: 1001 WER Windows Error Reporting
+# Event_id: 1002 Application Hang
+# Event_id: 95 CA permissions Corrupted or Missing
+# Event_id: 1022 New MSI file installed
+# Event_id: 1033 New MSI file installed
   - name: Setup
     event_id: 2, 1009
-    # Event_id: 2 Update package installed
-    # Event_id: 1009 Hotpatching failed
+# Event_id: 2 Update package installed
+# Event_id: 1009 Hotpatching failed
   - name: Security # because there is more than 22 individual eventid's i have to do it this way
     processors:
       - drop_event.when.not.or:
