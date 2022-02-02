@@ -151,14 +151,15 @@ winlogbeat.event_logs:
     event_id: 3008, 3020
   - name: Microsoft-Windows-DNSServer/Analytical
     event_id: 256, 257
-  - name: Microsoft-Windows-MPRMSG
+  - name: Microsoft-Windows-MPRMSG # not present on all versions of windows
     event_id: 20250, 20274, 20275
-  - name: Microsoft-Windows-CertificateServicesClientLifecycle-System
+  - name: Microsoft-Windows-CertificateServicesClient-Lifecycle-System/Operational
+  - name: Microsoft-Windows-CertificateServicesClient-Lifecycle-User/Operational
     event_id: 1006, 1004, 1007, 1003, 1001, 1002
   - name: Microsoft-Windows-Bits-Client/Operational
   - name: Microsoft-Windows-Ntfs/Operational
   - name: Microsoft-Windows-Kernel-ShimEngine/Operational
-  - name: Microsoft-Windows-Kernel-General
+  - name: Microsoft-Windows-Kernel-General # nof present in win 10
     event_id: 13, 12
   - name: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
     event_id: 2004, 2005, 2006, 2009, 2033
@@ -173,7 +174,7 @@ winlogbeat.event_logs:
   - name: Microsoft-Windows-AppLocker/Packaged app-Deployment
     event_id: 8023, 8020
   - name: Microsoft-Windows-Application-Experience/Program-Inventory
-    event_id: 903,904
+    event_id: 903, 904, 907, 908, 800, 905, 906
   - name: Microsoft-Windows-AppLocker/EXE and DLL # usefull for collecting data prior to enforcing any applocker rules, implementing GPO that limit execution from temp folder etc.
     event_id: 8002, 8003, 8004
   - name: Microsoft-Windows-AppLocker/MSI and Script # usefull for collecting data prior to enforcing any block rules or implementing GPO that limits use of this feature
@@ -182,7 +183,6 @@ winlogbeat.event_logs:
   - name: Microsoft-Windows-WMI-Activity/Operational
   - name: Microsoft-Windows-LSA/Operational
     event_id: 300
-  - name: AMSI/Operational
   - name: Windows PowerShell
     event_id: 169, 800
   - name: Microsoft-Windows-PrintService/Operational
