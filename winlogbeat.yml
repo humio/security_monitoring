@@ -173,8 +173,8 @@ winlogbeat.event_logs:
 # event_id: 2006 A rule has been deleted in the Windows Firewall exception list
 # event_id: 2009 The Windows Firewall service failed to load Group Policy  
 # event_id: 2033 All rules have been deleted from the Windows Firewall configuration on this computer  
-  - name: Microsoft-Windows-SMBServer/Operational
-  - name: Microsoft-Windows-SmbClient/Security
+  - name: Microsoft-Windows-SMBServer/Security 
+  - name: Microsoft-Windows-SmbClient/Security 
   - name: Microsoft-Windows-TPM-WMI
 # event_id: 31001 failed login to destination  
   - name: Microsoft-Windows-Windows Defender/Operational
