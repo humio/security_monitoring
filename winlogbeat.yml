@@ -34,6 +34,7 @@
 # 
 # In relation to DK "Center for Cybersikkerhed" guidance this setup provides input to "Andre logs/Other logs" section
 # (In Danish) https://cfcs.dk/globalassets/cfcs/dokumenter/vejledninger/cfcs-vejledning-logning.pdf
+# https://github.com/TonyPhipps/SIEM/blob/master/Notable-Event-IDs.md
 winlogbeat.event_logs:
   - name: Application
     event_id: 1518, 1511, 1000, 1001, 1002, 95, 1022, 1033
@@ -143,6 +144,8 @@ winlogbeat.event_logs:
   - name: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational # Added https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics 
 # event_id: 21 Remote Desktop Services: Session login succeeded
 # event_id: 22 Remote Desktop Services: Shell start notification received
+# event_id: 131 accepted new TCP connection
+# event_id: 140 Connection failed Bad username or password
   - name: Microsoft-Windows-Application-Experience/Program-Inventory # Added https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics
     event_id: 903, 904, 907, 908, 800, 905, 906
   - name: Microsoft-Windows-TaskScheduler/Operational
@@ -163,12 +166,17 @@ winlogbeat.event_logs:
     event_id: 13, 12
   - name: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
     event_id: 2004, 2005, 2006, 2009, 2033
+  - name: Microsoft-Windows-Kernel-PnP/Device Configuration # USB drive usage
+    event_id: 400, 410 
 # event_id: 2004 This event is logged when a rule has been added to the Windows Firewall exception list
 # event_id: 2005 This event is logged when a rule has been modified in the Windows Firewall exception list
 # event_id: 2006 A rule has been deleted in the Windows Firewall exception list
 # event_id: 2009 The Windows Firewall service failed to load Group Policy  
 # event_id: 2033 All rules have been deleted from the Windows Firewall configuration on this computer  
   - name: Microsoft-Windows-SMBServer/Operational
+  - name: Microsoft-Windows-SmbClient/Security
+  - name: Microsoft-Windows-TPM-WMI
+# event_id: 31001 failed login to destination  
   - name: Microsoft-Windows-Windows Defender/Operational
   - name: Microsot-Windows
   - name: Microsoft-Windows-AppLocker/Packaged app-Deployment
@@ -190,7 +198,9 @@ winlogbeat.event_logs:
   - name: Microsoft-Windows-PrintService/Admin
     event_id: 808, 31017, 326 # https://msandbu.org/printnightmare-cve-2021-1675/  
   - name: Microsoft-Windows-PowerShell/Operational
-    event_id: 4103, 4104, 4105, 4106
+    event_id: 4103, 4104, 4105, 4106, 40961, 40962, 24577, 8193, 8194, 8197, 53504
+  - name: Microsoft-Windows-PowerShell/Analytic
+    event_id: 32850, 32867, 32868
   - name: Microsoft-Windows-SoftwareRestrictionPolicies
     event_id: 865, 866, 867, 868, 882
   - name: Microsoft-Windows-Sysmon/Operational # recommended config https://github.com/Neo23x0/sysmon-config  
@@ -218,6 +228,7 @@ winlogbeat.event_logs:
   - name: Microsoft-Windows-Authentication/ProtectedUser-Client # must be enabled
   - name: Microsoft-Windows-Authentication/ProtectedUserFailures-DomainController # must be enabled DC specific
   - name: Microsoft-Windows-Authentication/ProtectedUserSuccesses-DomainController # must be enabled DC specific
+  - name: Microsoft-Windows-DriverFrameworks-UserMode/Operational # drivers loaded
 output.elasticsearch:
   hosts: 'https://cloud.humio.com:443/api/v1/ingest/elastic-bulk'
   password: YOUR INGEST TOKEN (repo specific)
