@@ -214,6 +214,10 @@ winlogbeat.event_logs:
   - name: Microsoft-Windows-GroupPolicy/Operational
 #    event_id: 1126, 1129, 112 # related to GPO failing
   - name: Microsoft-Windows-AAD/Operational # Azure AD related log
+  - name: Microsoft-Windows-Authentication/AuthenticationPolicyFailures-DomainController # must be enabled DC specific
+  - name: Microsoft-Windows-Authentication/ProtectedUser-Client # must be enabled
+  - name: Microsoft-Windows-Authentication/ProtectedUserFailures-DomainController # must be enabled DC specific
+  - name: Microsoft-Windows-Authentication/ProtectedUserSuccesses-DomainController # must be enabled DC specific
 output.elasticsearch:
   hosts: 'https://cloud.humio.com:443/api/v1/ingest/elastic-bulk'
   password: YOUR INGEST TOKEN (repo specific)
