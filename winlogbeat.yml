@@ -211,8 +211,8 @@ winlogbeat.event_logs:
   - name: Microsoft-Windows-PrintService/Operational # to detect CVE 2021-1675 attempts failed and successfull https://twitter.com/MalwareJake/status/1410421445608476679# current config set for humio cloud
   - name: Microsoft-Windows-CAPI2/Operational
     event_id: 11, 70, 90
-  - name: Microsoft-Windows-GroupPolicy
-    event_id: 1126, 1129, 112
+  - name: Microsoft-Windows-GroupPolicy/Operational
+#    event_id: 1126, 1129, 112 # related to GPO failing
 output.elasticsearch:
   hosts: 'https://cloud.humio.com:443/api/v1/ingest/elastic-bulk'
   password: YOUR INGEST TOKEN (repo specific)
