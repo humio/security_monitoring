@@ -126,7 +126,7 @@ winlogbeat.event_logs:
         - equals.winlog.event_id: "5136" # 5136: A directory service object was modified https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5136
         - equals.winlog.event_id: "5139" # 5139: A directory service object was moved https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5139
         - equals.winlog.event_id: "5138" # 5138: A directory service object was undeleted https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5138
-        - equals.winlog.event_id: "5038" # 5038: Code integrity determined that the image hash of a file is not valid https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5038
+        - equals.winlog.event_id: "5038" # 5038: integrity determined that the image hash of a file is not valid https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5038
         - equals.winlog.event_id: "6281" # 6281: Code Integrity determined that the page hashes of an image file are not valid https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6281
         - equals.winlog.event_id: "4657" # 4657: A registry value was modified https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4657
         - equals.winlog.event_id: "4782" # 4782: The password hash an account was accessed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4782
@@ -138,7 +138,7 @@ winlogbeat.event_logs:
   - name: System
     event_id: 7022, 7023, 7024, 7026, 7031, 7032, 7034, 6, 7045, 7000, 19, 1, 13, 12
   - name: Microsoft-Windows-TerminalServices-RDPClient/Operational # https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics
-  - name: Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational # Added https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics
+  - name: Microsoft-Windows-TerminalServices-ConnectionManager/Operational # Added https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics
   - name: Microsoft-Windows-TerminalServices-LocalSessionManager/Operational # see above link
 # event_id: 1149 User authentication succeeded  
   - name: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational # Added https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics 
@@ -154,6 +154,8 @@ winlogbeat.event_logs:
     event_id: 3008, 3020
   - name: Microsoft-Windows-DNSServer/Analytical
     event_id: 256, 257
+  - name: Microsoft-Windows-DNS-Client/Operational
+    event_id: 3008
   - name: Microsoft-Windows-MPRMSG # not present on all versions of windows
     event_id: 20250, 20274, 20275
   - name: Microsoft-Windows-CertificateServicesClient-Lifecycle-System/Operational
@@ -162,7 +164,7 @@ winlogbeat.event_logs:
   - name: Microsoft-Windows-Bits-Client/Operational
   - name: Microsoft-Windows-Ntfs/Operational
   - name: Microsoft-Windows-Kernel-ShimEngine/Operational
-  - name: Microsoft-Windows-Kernel-General # nof present in win 10
+  - name: Microsoft-Windows-Kernel-General # not present in win 10
     event_id: 13, 12
   - name: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
     event_id: 2004, 2005, 2006, 2009, 2033
@@ -178,9 +180,10 @@ winlogbeat.event_logs:
   - name: Microsoft-Windows-TPM-WMI
 # event_id: 31001 failed login to destination  
   - name: Microsoft-Windows-Windows Defender/Operational
-  - name: Microsot-Windows
   - name: Microsoft-Windows-AppLocker/Packaged app-Deployment
-    event_id: 8023, 8020
+    event_id: 8023, 8020, 8025
+  - name: Microsoft-Windows-AppLocker/Packaged app-Execution
+    event_id: 8022
   - name: Microsoft-Windows-Application-Experience/Program-Inventory
     event_id: 903, 904, 907, 908, 800, 905, 906
   - name: Microsoft-Windows-AppLocker/EXE and DLL # usefull for collecting data prior to enforcing any applocker rules, implementing GPO that limit execution from temp folder etc.
@@ -191,15 +194,15 @@ winlogbeat.event_logs:
   - name: Microsoft-Windows-WMI-Activity/Operational
   - name: Microsoft-Windows-LSA/Operational
     event_id: 300
-  - name: Windows PowerShell
+  - name: Windows PowerShell # https://resources.infosecinstitute.com/topic/powershell-remoting-artifacts-part-1/ https://nsfocusglobal.com/attack-and-defense-around-powershell-event-logging/
     event_id: 169, 800
   - name: Microsoft-Windows-PrintService/Operational
     event_id: 307
   - name: Microsoft-Windows-PrintService/Admin
     event_id: 808, 31017, 326 # https://msandbu.org/printnightmare-cve-2021-1675/  
-  - name: Microsoft-Windows-PowerShell/Operational
+  - name: Microsoft-Windows-PowerShell/Operational # https://resources.infosecinstitute.com/topic/powershell-remoting-artifacts-part-1/ https://nsfocusglobal.com/attack-and-defense-around-powershell-event-logging/
     event_id: 4103, 4104, 4105, 4106, 40961, 40962, 24577, 8193, 8194, 8197, 53504
-  - name: Microsoft-Windows-PowerShell/Analytic
+  - name: Microsoft-Windows-PowerShell/Analytic # must be enabled
     event_id: 32850, 32867, 32868
   - name: Microsoft-Windows-SoftwareRestrictionPolicies
     event_id: 865, 866, 867, 868, 882
@@ -222,13 +225,15 @@ winlogbeat.event_logs:
   - name: Microsoft-Windows-CAPI2/Operational
     event_id: 11, 70, 90
   - name: Microsoft-Windows-GroupPolicy/Operational
-#    event_id: 1126, 1129, 112 # related to GPO failing
+#   event_id: 1126, 1129, 112 # related to GPO failing
   - name: Microsoft-Windows-AAD/Operational # Azure AD related log
   - name: Microsoft-Windows-Authentication/AuthenticationPolicyFailures-DomainController # must be enabled DC specific
   - name: Microsoft-Windows-Authentication/ProtectedUser-Client # must be enabled
   - name: Microsoft-Windows-Authentication/ProtectedUserFailures-DomainController # must be enabled DC specific
   - name: Microsoft-Windows-Authentication/ProtectedUserSuccesses-DomainController # must be enabled DC specific
   - name: Microsoft-Windows-DriverFrameworks-UserMode/Operational # drivers loaded
+  - name: Microsoft-Windows-NTLM/Operational
+    event_id: 8001, 8002, 8003, 8004 # usefull for detemining where ntml is used to disable it
 output.elasticsearch:
   hosts: 'https://cloud.humio.com:443/api/v1/ingest/elastic-bulk'
   password: YOUR INGEST TOKEN (repo specific)
