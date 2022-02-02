@@ -131,11 +131,13 @@ winlogbeat.event_logs:
         - equals.winlog.event_id: "4698" # 4698: A scheduled task was created https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventID=4698
         - equals.winlog.event_id: "4699" # 4699: https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventID=4699
         - equals.winlog.event_id: "4702" # 4702: a scheduled task was updated https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4702
-  # 4702 added, based on Fireeye solarwinds hack report. ref https://www.csoonline.com/article/3601508/solarwinds-supply-chain-attack-explained-why-organizations-were-not-prepared.html
-  #
-  #
+# 4702 added, based on Fireeye solarwinds hack report. ref https://www.csoonline.com/article/3601508/solarwinds-supply-chain-attack-explained-why-organizations-were-not-prepared.html
+#
+  - name: System
+    event_id: 7022, 7023, 7024, 7026, 7031, 7032, 7034, 6, 7045, 7000, 19, 1, 13, 12
   - name: Microsoft-Windows-TerminalServices-RDPClient/Operational # https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics
-  - name: Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational # Added https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics  
+  - name: Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational # Added https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics
+  - name: Microsoft-Windows-TerminalServices-LocalSessionManager/Operational # see above link
 # event_id: 1149 User authentication succeeded  
   - name: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational # Added https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics
   - name: Microsoft-Windows-TerminalServices-LocalSessionManager/Operational # Added https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics  
@@ -207,11 +209,12 @@ winlogbeat.event_logs:
   - name: Microsoft-Windows-Partition/Diagnostic #present win10 1709+ logs USB/drive serials ref https://df-stream.com/2018/05/partition-diagnostic-event-log-and-usb-device-tracking-p1/    
     event_id: 1006
   - name: Microsoft-Windows-PrintService/Operational # to detect CVE 2021-1675 attempts failed and successfull https://twitter.com/MalwareJake/status/1410421445608476679# current config set for humio cloud
-# trial here https://cloud.humio.com/
-# adjust to your need
+  - name: Microsoft-Windows-CAPI2/Operational
+    event_id: 11, 70, 90
+  - name: Microsoft-Windows-GroupPolicy
+    event_id: 1126, 1129, 112
 output.elasticsearch:
-  hosts: 
-  - 'https://cloud.humio.com:443/api/v1/ingest/elastic-bulk'
+  hosts: 'https://cloud.humio.com:443/api/v1/ingest/elastic-bulk'
   password: YOUR INGEST TOKEN (repo specific)
   compression_level: 5
   bulk_max_size: 200
