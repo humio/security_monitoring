@@ -177,7 +177,6 @@ winlogbeat.event_logs:
 # event_id: 2033 All rules have been deleted from the Windows Firewall configuration on this computer  
   - name: Microsoft-Windows-SMBServer/Security 
   - name: Microsoft-Windows-SmbClient/Security 
-  - name: Microsoft-Windows-TPM-WMI
 # event_id: 31001 failed login to destination  
   - name: Microsoft-Windows-Windows Defender/Operational
   - name: Microsoft-Windows-AppLocker/Packaged app-Deployment
@@ -211,8 +210,6 @@ winlogbeat.event_logs:
     event_id: 1074 # https://kb.eventtracker.com/evtpass/evtpages/EventId_1074_User32_46330.asp
   - name: Microsoft-Windows-WindowsUpdateClient/Operational
     event_id: 20, 24, 25, 31, 34, 35
-  - name: Microsoft-Windows-USB-USBHUB3-Analytic
-    event_id: 43
   - name: Microsoft-Windows-Kernel-PnP/Device Configuration
     event_id: 400, 410
   - name: Microsoft-Windows-CodeIntegrity/Operational
