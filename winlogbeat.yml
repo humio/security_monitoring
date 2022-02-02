@@ -51,97 +51,89 @@ winlogbeat.event_logs:
   - name: Security # because there is more than 22 individual eventid's i have to do it this way
     processors:
       - drop_event.when.not.or:
-        - equals.winlog.event_id: 1100 # 1100: The event logging service has shut down https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1100
-        - equals.winlog.event_id: 1102 # 1102: The audit log was cleared 1102 https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1102
-        - equals.winlog.event_id: 4740 # 4740: A user account was locked out https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4740
-        - equals.winlog.event_id: 4616 # 4616: The system time was changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4616
-        - equals.winlog.event_id: 4688 # 4688: A new process has been created https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4688 dont forget to enable commandline logging on this one!!
-        - equals.winlog.event_id: 4648 # 4648: A logon was attempted using explicit credentials https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4648
-        - equals.winlog.event_id: 4781 # 4781: The name of an account was changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4781
-        - equals.winlog.event_id: 4733 # 4733: A member was removed from a security-enabled local group https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4733
-        - equals.winlog.event_id: 4776 # 4776: The domain controller attempted to validate the credentials for an account https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4776
-        - equals.winlog.event_id: 5376 # 5376: Credential Manager credentials were backed up https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5376
-        - equals.winlog.event_id: 5377 # 5377: Credential Manager credentials were restored from a backup https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5377
-        - equals.winlog.event_id: 4625 # 4625: An account failed to log on https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4625
-        - equals.winlog.event_id: 4634 # 4634: An account was logged off https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4634
-        - equals.winlog.event_id: 4672 # 4672: Special privileges assigned to new logon https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4672
-        - equals.winlog.event_id: 4720 # 4720: A user account was created https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4720
-        - equals.winlog.event_id: 4722 # 4722: A user account was enabled https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4722
-        - equals.winlog.event_id: 4793 # 4793: The Password Policy Checking API was called https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4793
-        - equals.winlog.event_id: 4731 # 4731: A security-enabled local group was created https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4731
-        - equals.winlog.event_id: 4735 # 4735: A security-enabled local group was changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4735
-        - equals.winlog.event_id: 4766 # 4766: An attempt to add SID History to an account failed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4766
-        - equals.winlog.event_id: 4765 # 4765: SID History was added to an account https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4765
-        - equals.winlog.event_id: 4624 # 4624: An account was successfully logged on https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4624
-        - equals.winlog.event_id: 4726 # 4726: A user account was deleted https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4726
-        - equals.winlog.event_id: 4725 # 4725: A user account was disabled https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4725
-        - equals.winlog.event_id: 4767 # 4767: A user account was unlocked https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4767
-        - equals.winlog.event_id: 4728 # 4728: A member was added to a security-enabled global group https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4728
-        - equals.winlog.event_id: 4732 # 4732: A member was added to a security-enabled local group https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4732
-        - equals.winlog.event_id: 4756 # 4756: A member was added to a security-enabled universal group https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4756
-        - equals.winlog.event_id: 4704 # 4704: A user right was assigned https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4704
-        - equals.winlog.event_id: 4886 # 4886: Certificate Services received a certificate request https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4886
-        - equals.winlog.event_id: 4890 # 4890: The certificate manager settings for Certificate Services changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4890
-        - equals.winlog.event_id: 4874 # 4874: One or more certificate request attributes changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4874
-        - equals.winlog.event_id: 4873 # 4873: A certificate request extension changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4873
-        - equals.winlog.event_id: 4870 # 4870: Certificate Services revoked a certificate https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4870
-        - equals.winlog.event_id: 4887 # 4887: Certificate Services approved a certificate request and issued a certificate https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4887
-        - equals.winlog.event_id: 4885 # 4885: The audit filter for Certificate Services changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4885
-        - equals.winlog.event_id: 4891 # 4891: A configuration entry changed in Certificate Services https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4891
-        - equals.winlog.event_id: 4888 # 4888: Certificate Services denied a certificate request https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4888
-        - equals.winlog.event_id: 4898 # 4898: Certificate Services loaded a template https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4898
-        - equals.winlog.event_id: 4882 # 4882: The security permissions for Certificate Services changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4882
-        - equals.winlog.event_id: 4892 # 4892: A property of Certificate Services changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4892
-        - equals.winlog.event_id: 4880 # 4880: Certificate Services started https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4880
-        - equals.winlog.event_id: 4881 # 4881: Certificate Services stopped https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4881
-        - equals.winlog.event_id: 4900 # 4900: Certificate Services template security was updated https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4900
-        - equals.winlog.event_id: 4899 # 4899: A Certificate Services template was updated https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4899
-        - equals.winlog.event_id: 4896 # 4896: One or more rows have been deleted from the certificate database https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4896
-        - equals.winlog.event_id: 4714 # 4714: Encrypted data recovery policy was changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4714
-        - equals.winlog.event_id: 4713 # 4713: Kerberos policy was changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4713
-        - equals.winlog.event_id: 4769 # 4769: A Kerberos service ticket was requested https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4769
-        - equals.winlog.event_id: 6273 # 6273: Network Policy Server denied access to a user https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6273
-        - equals.winlog.event_id: 6275 # 6275: Network Policy Server discarded the accounting request for a user https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6275
-        - equals.winlog.event_id: 6274 # 6274: Network Policy Server discarded the request for a user https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6274
-        - equals.winlog.event_id: 6272 # 6272: Network Policy Server granted access to a user https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6272
-        - equals.winlog.event_id: 6278 # 6278: Network Policy Server granted full access to a user because the host met the defined health policy  https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6278
-        - equals.winlog.event_id: 6277 # 6277: Network Policy Server granted access to a user but put it on probation because the host did not meet the defined health policy  https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6277
-        - equals.winlog.event_id: 6279 # 6279: Network Policy Server locked the user account due to repeated failed authentication attempts https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6279
-        - equals.winlog.event_id: 6276 # 6276: Network Policy Server quarantined a user https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6276
-        - equals.winlog.event_id: 6280 # 6280: Network Policy Server unlocked the user account https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6280
-        - equals.winlog.event_id: 5140 # 5140: A network share object was accessed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5140
-        - equals.winlog.event_id: 5145 # 5145: A network share object was checked to see whether client can be granted desired access https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5145
-        - equals.winlog.event_id: 5144 # 5144: A network share object was deleted https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5144
-        - equals.winlog.event_id: 4706 # 4706: A new trust was created to a domain https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4706
-        - equals.winlog.event_id: 4897 # 4897: Role separation enabled https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4897
-        - equals.winlog.event_id: 4719 # 4719: System audit policy was changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4719
-        - equals.winlog.event_id: 4716 # 4716: Trusted domain information was modified https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4716
-        - equals.winlog.event_id: 4779 # 4779: A session was disconnected from a Window Station https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4779
-        - equals.winlog.event_id: 4778 # 4778: A session was reconnected to a Window Station https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4778
-        - equals.winlog.event_id: 5632 # 5632: A request was made to authenticate to a wireless network https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5632
-        - equals.winlog.event_id: 5137 # 5137: A directory service object was created https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5137
-        - equals.winlog.event_id: 5141 # 5141: A directory service object was deleted https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5141
-        - equals.winlog.event_id: 5136 # 5136: A directory service object was modified https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5136
-        - equals.winlog.event_id: 5139 # 5139: A directory service object was moved https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5139
-        - equals.winlog.event_id: 5138 # 5138: A directory service object was undeleted https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5138
-        - equals.winlog.event_id: 5024 # 5024: The Windows Firewall Service has started successfully https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5024        
-        - equals.winlog.event_id: 5025 # 5025: The Windows Firewall Service has been stopped https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5025        
-        - equals.winlog.event_id: 5027 # 5027: The Windows Firewall Service was unable to retrieve the security policy from the local storage https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5027        - equals.winlog.event_id: 6281 # 6281: Code Integrity determined that the page hashes of an image file are not valid https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6281
-        - equals.winlog.event_id: 5028 # 5028: The Windows Firewall Service was unable to parse the new security policy https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5028        - equals.winlog.event_id: 5038 # 5038: Code integrity determined that the image hash of a file is not valid https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5038        - equals.winlog.event_id: 4657 # 4657: A registry value was modified https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4657
-        - equals.winlog.event_id: 5029 # 5029: The Windows Firewall Service failed to initialize the driver https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5029        - equals.winlog.event_id: 4782 # 4782: The password hash an account was accessed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4782
-        - equals.winlog.event_id: 5030 # 5030: The Windows Firewall Service failed to start https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5030        
-        - equals.winlog.event_id: 5031 # 5031: The Windows Firewall Service blocked an application from accepting incoming connections on the network https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5031        - equals.winlog.event_id: 4698 # 4698: A scheduled task was created https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventID=4698
-        - equals.winlog.event_id: 5032 # 5032: Windows Firewall was unable to notify the user that it blocked an application from accepting incoming connections on the network https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5032
-        - equals.winlog.event_id: 5033 # 5033: The Windows Firewall Driver has started successfully https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5033
-        - equals.winlog.event_id: 5034 # 5034: The Windows Firewall Driver has been stopped https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5034
-        - equals.winlog.event_id: 5035 # 5035: The Windows Firewall Driver failed to start https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5035
-        - equals.winlog.event_id: 5037 # 5037: The Windows Firewall Driver detected critical runtime error. Terminating https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5037
-        - equals.winlog.event_id: 4699 # 4699: https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventID=4699
-        - equals.winlog.event_id: 4702 # 4702: a scheduled task was updated https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4702
-# 4702: added, based on Fireeye solarwinds hack report. ref https://www.csoonline.com/article/3601508/solarwinds-supply-chain-attack-explained-why-organizations-were-not-prepared.html
-#
-# Addtional log data sources
-#
+        - equals.winlog.event_id: "1100" # 1100: The event logging service has shut down https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1100
+        - equals.winlog.event_id: "1102" # 1102: The audit log was cleared 1102 https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1102
+        - equals.winlog.event_id: "4740" # 4740: A user account was locked out https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4740
+        - equals.winlog.event_id: "4616" # 4616: The system time was changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4616
+        - equals.winlog.event_id: "4688" # 4688: A new process has been created https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4688 dont forget to enable commandline logging on this one!!
+        - equals.winlog.event_id: "4648" # 4648: A logon was attempted using explicit credentials https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4648
+        - equals.winlog.event_id: "4781" # 4781: The name of an account was changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4781
+        - equals.winlog.event_id: "4733" # 4733: A member was removed from a security-enabled local group https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4733
+        - equals.winlog.event_id: "4776" # 4776: The domain controller attempted to validate the credentials for an account https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4776
+        - equals.winlog.event_id: "5376" # 5376: Credential Manager credentials were backed up https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5376
+        - equals.winlog.event_id: "5377" # 5377: Credential Manager credentials were restored from a backup https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5377
+        - equals.winlog.event_id: "4625" # 4625: An account failed to log on https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4625
+        - equals.winlog.event_id: "4634" # 4634: An account was logged off https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4634
+        - equals.winlog.event_id: "4672" # 4672: Special privileges assigned to new logon https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4672
+        - equals.winlog.event_id: "4720" # 4720: A user account was created https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4720
+        - equals.winlog.event_id: "4722" # 4722: A user account was enabled https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4722
+        - equals.winlog.event_id: "4793" # 4793: The Password Policy Checking API was called https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4793
+        - equals.winlog.event_id: "4731" # 4731: A security-enabled local group was created https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4731
+        - equals.winlog.event_id: "4735" # 4735: A security-enabled local group was changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4735
+        - equals.winlog.event_id: "4766" # 4766: An attempt to add SID History to an account failed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4766
+        - equals.winlog.event_id: "4765" # 4765: SID History was added to an account https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4765
+        - equals.winlog.event_id: "4624" # 4624: An account was successfully logged on https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4624
+        - equals.winlog.event_id: "4726" # 4726: A user account was deleted https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4726
+        - equals.winlog.event_id: "4725" # 4725: A user account was disabled https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4725
+        - equals.winlog.event_id: "4767" # 4767: A user account was unlocked https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4767
+        - equals.winlog.event_id: "4728" # 4728: A member was added to a security-enabled global group https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4728
+        - equals.winlog.event_id: "4732" # 4732: A member was added to a security-enabled local group https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4732
+        - equals.winlog.event_id: "4756" # 4756: A member was added to a security-enabled universal group https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4756
+        - equals.winlog.event_id: "4704" # 4704: A user right was assigned https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4704
+        - equals.winlog.event_id: "4886" # 4886: Certificate Services received a certificate request https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4886
+        - equals.winlog.event_id: "4890" # 4890: The certificate manager settings for Certificate Services changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4890
+        - equals.winlog.event_id: "4874" # 4874: One or more certificate request attributes changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4874
+        - equals.winlog.event_id: "4873" # 4873: A certificate request extension changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4873
+        - equals.winlog.event_id: "4870" # 4870: Certificate Services revoked a certificate https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4870
+        - equals.winlog.event_id: "4887" # 4887: Certificate Services approved a certificate request and issued a certificate https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4887
+        - equals.winlog.event_id: "4885" # 4885: The audit filter for Certificate Services changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4885
+        - equals.winlog.event_id: "4891" # 4891: A configuration entry changed in Certificate Services https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4891
+        - equals.winlog.event_id: "4888" # 4888: Certificate Services denied a certificate request https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4888
+        - equals.winlog.event_id: "4898" # 4898: Certificate Services loaded a template https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4898
+        - equals.winlog.event_id: "4882" # 4882: The security permissions for Certificate Services changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4882
+        - equals.winlog.event_id: "4892" # 4892: A property of Certificate Services changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4892
+        - equals.winlog.event_id: "4880" # 4880: Certificate Services started https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4880
+        - equals.winlog.event_id: "4881" # 4881: Certificate Services stopped https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4881
+        - equals.winlog.event_id: "4900" # 4900: Certificate Services template security was updated https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4900
+        - equals.winlog.event_id: "4899" # 4899: A Certificate Services template was updated https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4899
+        - equals.winlog.event_id: "4896" # 4896: One or more rows have been deleted from the certificate database https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4896
+        - equals.winlog.event_id: "4714" # 4714: Encrypted data recovery policy was changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4714
+        - equals.winlog.event_id: "4713" # 4713: Kerberos policy was changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4713
+        - equals.winlog.event_id: "4769" # 4769: A Kerberos service ticket was requested https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4769
+        - equals.winlog.event_id: "6273" # 6273: Network Policy Server denied access to a user https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6273
+        - equals.winlog.event_id: "6275" # 6275: Network Policy Server discarded the accounting request for a user https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6275
+        - equals.winlog.event_id: "6274" # 6274: Network Policy Server discarded the request for a user https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6274
+        - equals.winlog.event_id: "6272" # 6272: Network Policy Server granted access to a user https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6272
+        - equals.winlog.event_id: "6278" # 6278: Network Policy Server granted full access to a user because the host met the defined health policy  https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6278
+        - equals.winlog.event_id: "6277" # 6277: Network Policy Server granted access to a user but put it on probation because the host did not meet the defined health policy  https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6277
+        - equals.winlog.event_id: "6279" # 6279: Network Policy Server locked the user account due to repeated failed authentication attempts https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6279
+        - equals.winlog.event_id: "6276" # 6276: Network Policy Server quarantined a user https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6276
+        - equals.winlog.event_id: "6280" # 6280: Network Policy Server unlocked the user account https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6280
+        - equals.winlog.event_id: "5140" # 5140: A network share object was accessed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5140
+        - equals.winlog.event_id: "5145" # 5145: A network share object was checked to see whether client can be granted desired access https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5145
+        - equals.winlog.event_id: "5144" # 5144: A network share object was deleted https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5144
+        - equals.winlog.event_id: "4706" # 4706: A new trust was created to a domain https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4706
+        - equals.winlog.event_id: "4897" # 4897: Role separation enabled https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4897
+        - equals.winlog.event_id: "4719" # 4719: System audit policy was changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4719
+        - equals.winlog.event_id: "4716" # 4716: Trusted domain information was modified https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4716
+        - equals.winlog.event_id: "4779" # 4779: A session was disconnected from a Window Station https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4779
+        - equals.winlog.event_id: "4778" # 4778: A session was reconnected to a Window Station https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4778
+        - equals.winlog.event_id: "5632" # 5632: A request was made to authenticate to a wireless network https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5632
+        - equals.winlog.event_id: "5137" # 5137: A directory service object was created https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5137
+        - equals.winlog.event_id: "5141" # 5141: A directory service object was deleted https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5141
+        - equals.winlog.event_id: "5136" # 5136: A directory service object was modified https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5136
+        - equals.winlog.event_id: "5139" # 5139: A directory service object was moved https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5139
+        - equals.winlog.event_id: "5138" # 5138: A directory service object was undeleted https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5138
+        - equals.winlog.event_id: "5038" # 5038: Code integrity determined that the image hash of a file is not valid https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5038
+        - equals.winlog.event_id: "6281" # 6281: Code Integrity determined that the page hashes of an image file are not valid https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6281
+        - equals.winlog.event_id: "4657" # 4657: A registry value was modified https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4657
+        - equals.winlog.event_id: "4782" # 4782: The password hash an account was accessed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4782
+        - equals.winlog.event_id: "4698" # 4698: A scheduled task was created https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventID=4698
+        - equals.winlog.event_id: "4699" # 4699: https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventID=4699
+        - equals.winlog.event_id: "4702" # 4702: a scheduled task was updated https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4702
+  # 4702 added, based on Fireeye solarwinds hack report. ref https://www.csoonline.com/article/3601508/solarwinds-supply-chain-attack-explained-why-organizations-were-not-prepared.html
+  #
+  #
   - name: Microsoft-Windows-TerminalServices-RDPClient/Operational # https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics
   - name: Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational # Added https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics  
 # event_id: 1149 User authentication succeeded  
