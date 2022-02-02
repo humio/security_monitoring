@@ -183,8 +183,6 @@ winlogbeat.event_logs:
     event_id: 8023, 8020, 8025
   - name: Microsoft-Windows-AppLocker/Packaged app-Execution
     event_id: 8022
-  - name: Microsoft-Windows-Application-Experience/Program-Inventory
-    event_id: 903, 904, 907, 908, 800, 905, 906
   - name: Microsoft-Windows-AppLocker/EXE and DLL # usefull for collecting data prior to enforcing any applocker rules, implementing GPO that limit execution from temp folder etc.
     event_id: 8002, 8003, 8004
   - name: Microsoft-Windows-AppLocker/MSI and Script # usefull for collecting data prior to enforcing any block rules or implementing GPO that limits use of this feature
