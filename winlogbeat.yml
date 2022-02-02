@@ -22,6 +22,7 @@
 # is needed to ensure full benefit of this configuration. 
 #
 # Some eventid's may not be generated unless specific non standard polices are enabled
+# Some log data sources are not present on all versions of windows
 #
 # some log sources may only be relevant for specific types of servers
 #
