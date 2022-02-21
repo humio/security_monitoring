@@ -229,6 +229,9 @@ winlogbeat.event_logs:
   - name: Microsoft-Windows-DriverFrameworks-UserMode/Operational # drivers loaded
   - name: Microsoft-Windows-NTLM/Operational
     event_id: 8001, 8002, 8003, 8004 # usefull for detemining where ntml is used to disable it
+# feature flag needs to be disabled on winlogbeat 8.0+
+setup.ilm.enabled: false
+#
 output.elasticsearch:
   hosts: 'https://cloud.humio.com:443/api/v1/ingest/elastic-bulk'
   password: YOUR INGEST TOKEN (repo specific)
@@ -236,3 +239,5 @@ output.elasticsearch:
   bulk_max_size: 200
   worker: 1
   protocol: https
+# feature flag needs to be disabled on winlogbeat 8.0+
+setup.ilm.enabled: false
