@@ -66,6 +66,7 @@ winlogbeat.event_logs:
         - equals.winlog.event_id: "5377" # 5377: Credential Manager credentials were restored from a backup https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5377
         - equals.winlog.event_id: "4625" # 4625: An account failed to log on https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4625
         - equals.winlog.event_id: "4634" # 4634: An account was logged off https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4634
+        - equals.winlog.event_id: "4663" # 4663: An attempt was made to access an object https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventID=4663        
         - equals.winlog.event_id: "4672" # 4672: Special privileges assigned to new logon https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4672
         - equals.winlog.event_id: "4720" # 4720: A user account was created https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4720
         - equals.winlog.event_id: "4722" # 4722: A user account was enabled https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4722
