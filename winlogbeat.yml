@@ -233,6 +233,9 @@ winlogbeat.event_logs:
 output.elasticsearch:
   hosts: 'https://cloud.humio.com:443/api/v1/ingest/elastic-bulk'
   password: YOUR INGEST TOKEN (repo specific)
+#### if using Humio Commnunity edition used this line only 1 hosts: config is valid  ###
+# hosts: https://cloud.community.humio.com/  
+# password: YOUR INGEST TOKEN (repo specific)
   compression_level: 5
   bulk_max_size: 200
   worker: 1
