@@ -240,5 +240,7 @@ output.elasticsearch:
   bulk_max_size: 200
   worker: 1
   protocol: https
+# feature flag needs to be enabled on winlogbeat 8.1+
+  allow_older_versions: true
 # feature flag needs to be disabled on winlogbeat 8.0+
 setup.ilm.enabled: false
