@@ -388,4 +388,4 @@ sinks:
     type: humio
     token: "your repo token"
     proxy: none 
-    url: https://cloud.humio.com/
+    url: https://cloud.humio.com/ # insert relevant url ex community version 
