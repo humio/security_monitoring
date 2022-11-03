@@ -1,0 +1,391 @@
+## HLC version of security monitoirng 
+# __      __.__            .___                                                                                                                                                             
+#/  \    /  \__| ____    __| _/______  _  ________                                                                                                                                          
+#\   \/\/   /  |/    \  / __ |/  _ \ \/ \/ /  ___/                                                                                                                                          
+# \        /|  |   |  \/ /_/ (  <_> )     /\___ \                                                                                                                                           
+#  \__/\  / |__|___|  /\____ |\____/ \/\_//____  >                                                                                                                                          
+#       \/          \/      \/                 \/                                                                                                                                           
+#  _________                          .__  __            _____                .__  __               .__                                                                                     
+# /   _____/ ____   ____  __ _________|__|/  |_ ___.__. /     \   ____   ____ |__|/  |_  ___________|__| ____    ____                                                                       
+# \_____  \_/ __ \_/ ___\|  |  \_  __ \  \   __<   |  |/  \ /  \ /  _ \ /    \|  \   __\/  _ \_  __ \  |/    \  / ___\                                                                      
+# /        \  ___/\  \___|  |  /|  | \/  ||  |  \___  /    Y    (  <_> )   |  \  ||  | (  <_> )  | \/  |   |  \/ /_/  >                                                                     
+#/_______  /\___  >\___  >____/ |__|  |__||__|  / ____\____|__  /\____/|___|  /__||__|  \____/|__|  |__|___|  /\___  /                                                                      
+#        \/     \/     \/                       \/            \/            \/                              \//_____/                                                                       
+#__________                 __ __________                       __  .__             ___________                    __ ___________                                    .___.__                
+#\______   \ ____   _______/  |\______   \____________    _____/  |_|__| ____  ____ \_   _____/__  __ ____   _____/  |\_   _____/____________  _  _______ _______  __| _/|__| ____    ____  
+# |    |  _// __ \ /  ___/\   __\     ___/\_  __ \__  \ _/ ___\   __\  |/ ___\/ __ \ |    __)_\  \/ // __ \ /    \   __\    __)/  _ \_  __ \ \/ \/ /\__  \\_  __ \/ __ | |  |/    \  / ___\ 
+# |    |   \  ___/ \___ \  |  | |    |     |  | \// __ \\  \___|  | |  \  \__\  ___/ |        \\   /\  ___/|   |  \  | |     \(  <_> )  | \/\     /  / __ \|  | \/ /_/ | |  |   |  \/ /_/  >
+# |______  /\___  >____  > |__| |____|     |__|  (____  /\___  >__| |__|\___  >___  >_______  / \_/  \___  >___|  /__| \___  / \____/|__|    \/\_/  (____  /__|  \____ | |__|___|  /\___  / 
+#        \/     \/     \/                             \/     \/             \/    \/        \/           \/     \/         \/                            \/           \/         \//_____/  
+#                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+# Inspired by florian roth auditD config example for linux ( https://github.com/Neo23x0/auditd) I made an similar 
+# effort for the windows platform. Please read the link for nsacyber carefully as addionaly configuration 
+# is needed to ensure full benefit of this configuration. 
+#
+# Some eventid's may not be generated unless specific non standard polices are enabled
+# Some log data sources are not present on all versions of windows
+#
+# some log sources may only be relevant for specific types of servers
+#
+# addtionally this monitoring can provide a forensic and incident readiness. From experience the log data is also extremely usefull
+# in day to day operations for general infrastructure monitoring. 
+#
+# config of sysmon and installation of sysmon must be done seperately from this config
+#
+# REFERENCES:
+# setup in accordance with and inspired by https://github.com/nsacyber/Event-Forwarding-Guidance/tree/master/Events
+# 
+# In relation to DK Center for Cybersikkerhed guidance this setup provides input to Andre logs/Other logs section
+# (In Danish) https://cfcs.dk/globalassets/cfcs/dokumenter/vejledninger/cfcs-vejledning-logning.pdf
+# https://github.com/TonyPhipps/SIEM/blob/master/Notable-Event-IDs.md
+# https://nasbench.medium.com/finding-forensic-goodness-in-obscure-windows-event-logs-60e978ea45a3
+dataDirectory: C:\ProgramData\CrowdStrike\Humio Log Collector\
+sources:
+  wineventlog:
+    type: wineventlog
+# Channels to open.
+# If no channels are specified, all available channels will be used.
+    channels:
+      - name: System
+        onlyEventIDs:
+          - 1
+          - 6
+          - 12
+          - 13
+          - 19
+          - 7000
+          - 7022
+          - 7023
+          - 7024
+          - 7026
+          - 7031
+          - 7032
+          - 7034
+          - 7045
+      - name: Application
+        onlyEventIDs:
+          - 95 # Event_id: 95 CA permissions Corrupted or Missing
+          - 1000 # Event_id: 1000 App crash
+          - 1001 # Event_id: 1001 WER Windows Error Reporting
+          - 1002 # Event_id: 1002 Application Hang
+          - 1022 # Event_id: 1022 New MSI file installed
+          - 1033 # Event_id: 1033 New MSI file installed
+          - 1511 # Event_id: 1511 Temp profile Logon
+          - 1518 # Event_id: 1518 Create Profile failed
+      - name: Setup
+        onlyEventIDs:
+          - 2 # Event_id: 2 Update package installed
+          - 1009 # Event_id: 1009 Hotpatching failed         
+      - name: Security
+        onlyEventIDs:
+          - 1100 # 1100: The event logging service has shut down https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1100
+          - 1102 # 1102: The audit log was cleared 1102 https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1102
+          - 4740 # 4740: A user account was locked out https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4740
+          - 4616 # 4616: The system time was changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4616
+          - 4688 # A new process has been created https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4688 dont forget to enable commandline logging on this one!!
+          - 4648 # 4648: A logon was attempted using explicit credentials https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4648
+          - 4681 # 4781: The name of an account was changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4781
+          - 4733 # 4733: A member was removed from a security-enabled local group https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4733
+          - 4776 # 4776: The domain controller attempted to validate the credentials for an account https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4776
+          - 5376 # 5376: Credential Manager credentials were backed up https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5376
+          - 5377 # 5377: Credential Manager credentials were restored from a backup https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5377
+          - 4625 # 4625: An account failed to log on https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4625
+          - 4634 # 4634: An account was logged off https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4634
+          - 4663 # 4663: An attempt was made to access an object https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventID=4663        
+          - 4672 # 4672: Special privileges assigned to new logon https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4672
+          - 4720 # 4720: A user account was created https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4720
+          - 4722 # 4722: A user account was enabled https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4722
+          - 4793 # 4793: The Password Policy Checking API was called https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4793
+          - 4731 # 4731: A security-enabled local group was created https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4731
+          - 4735 # 4735: A security-enabled local group was changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4735
+          - 4766 # 4766: An attempt to add SID History to an account failed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4766
+          - 4765 # 4765: SID History was added to an account https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4765
+          - 4624 # 4624: An account was successfully logged on https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4624
+          - 4726 # 4726: A user account was deleted https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4726
+          - 4725 # 4725: A user account was disabled https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4725
+          - 4767 # 4767: A user account was unlocked https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4767
+          - 4728 # 4728: A member was added to a security-enabled global group https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4728
+          - 4732 # 4732: A member was added to a security-enabled local group https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4732
+          - 4756 # 4756: A member was added to a security-enabled universal group https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4756
+          - 4704 # 4704: A user right was assigned https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4704
+          - 4886 # 4886: Certificate Services received a certificate request https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4886
+          - 4890 # 4890: The certificate manager settings for Certificate Services changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4890
+          - 4874 # 4874: One or more certificate request attributes changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4874
+          - 4873 # 4873: A certificate request extension changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4873
+          - 4870 # 4870: Certificate Services revoked a certificate https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4870
+          - 4887 # 4887: Certificate Services approved a certificate request and issued a certificate https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4887
+          - 4885 # 4885: The audit filter for Certificate Services changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4885
+          - 4891 # 4891: A configuration entry changed in Certificate Services https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4891
+          - 4888 # 4888: Certificate Services denied a certificate request https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4888
+          - 4898 # 4898: Certificate Services loaded a template https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4898
+          - 4882 # 4882: The security permissions for Certificate Services changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4882
+          - 4892 # 4892: A property of Certificate Services changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4892
+          - 4880 # 4880: Certificate Services started https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4880
+          - 4881 # 4881: Certificate Services stopped https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4881
+          - 4900 # 4900: Certificate Services template security was updated https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4900
+          - 4899 # 4899: A Certificate Services template was updated https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4899
+          - 4896 # 4896: One or more rows have been deleted from the certificate database https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4896
+          - 4714 # 4714: Encrypted data recovery policy was changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4714
+          - 4713 # 4713: Kerberos policy was changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4713
+          - 4769 # 4769: A Kerberos service ticket was requested https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4769
+          - 6273 # 6273: Network Policy Server denied access to a user https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6273
+          - 6275 # 6275: Network Policy Server discarded the accounting request for a user https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6275
+          - 6274 # 6274: Network Policy Server discarded the request for a user https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6274
+          - 6272 # 6272: Network Policy Server granted access to a user https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6272
+          - 6278 # 6278: Network Policy Server granted full access to a user because the host met the defined health policy  https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6278
+          - 6277 # 6277: Network Policy Server granted access to a user but put it on probation because the host did not meet the defined health policy  https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6277
+          - 6279 # 6279: Network Policy Server locked the user account due to repeated failed authentication attempts https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6279
+          - 6276 # 6276: Network Policy Server quarantined a user https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6276
+          - 6280 # 6280: Network Policy Server unlocked the user account https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6280
+          - 5140 # 5140: A network share object was accessed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5140
+          - 5145 # 5145: A network share object was checked to see whether client can be granted desired access https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5145
+          - 5144 # 5144: A network share object was deleted https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5144
+          - 4706 # 4706: A new trust was created to a domain https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4706
+          - 4897 # 4897: Role separation enabled https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4897
+          - 4719 # 4719: System audit policy was changed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4719
+          - 4716 # 4716: Trusted domain information was modified https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4716
+          - 4779 # 4779: A session was disconnected from a Window Station https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4779
+          - 4778 # 4778: A session was reconnected to a Window Station https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4778
+          - 5632 # 5632: A request was made to authenticate to a wireless network https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5632
+          - 5137 # 5137: A directory service object was created https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5137
+          - 5141 # 5141: A directory service object was deleted https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5141
+          - 5136 # 5136: A directory service object was modified https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5136
+          - 5139 # 5139: A directory service object was moved https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5139
+          - 5138 # 5138: A directory service object was undeleted https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5138
+          - 5038 # 5038: integrity determined that the image hash of a file is not valid https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5038
+          - 6281 # 6281: Code Integrity determined that the page hashes of an image file are not valid https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6281
+          - 4657 # 4657: A registry value was modified https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4657
+          - 4782 # 4782: The password hash an account was accessed https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4782
+          - 4698 # 4698: A scheduled task was created https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventID=4698
+          - 4699 # 4699: https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventID=4699
+          - 4702 # 4702: a scheduled task was updated https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4702
+                 # 4702 added, based on Fireeye solarwinds hack report. ref https://www.csoonline.com/article/3601508/solarwinds-supply-chain-attack-explained-why-organizations-were-not-prepared.html
+#
+#   
+      - name: Microsoft-Windows-TerminalServices-RDPClient/Operational # https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics
+      - name: Microsoft-Windows-TerminalServices-ConnectionManager/Operational # Added https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics
+      - name: Microsoft-Windows-TerminalServices-LocalSessionManager/Operational # see above link
+        # event_id: 1149 User authentication succeeded
+      - name: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational # Added https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics 
+        # event_id: 21 Remote Desktop Services: Session login succeeded
+        # event_id: 22 Remote Desktop Services: Shell start notification received
+        # event_id: 131 accepted new TCP connection
+        # event_id: 140 Connection failed Bad username or password
+      - name: Microsoft-Windows-Application-Experience/Program-Inventory # Added https://www.security-hive.com/post/rdp-forensics-logging-detection-and-forensics
+        onlyEventIDs:
+          - 800
+          - 903
+          - 904
+          - 905
+          - 906
+          - 907
+          - 908
+      - name: Microsoft-Windows-TaskScheduler/Operational # ref https://www.cyprich.com/2017/03/29/common-task-scheduler-event-ids/
+        onlyEventIDs:
+          - 106
+          - 107
+          - 108
+          - 110
+          - 140
+          - 141
+          - 142
+          - 200
+      - name: Microsoft-Windows-DNS-Client/Operational # if relevant server role
+        onlyEventIDs:
+          - 3008
+          - 3020
+      - name: Microsoft-Windows-DNSServer/Analytical # if relevant server role
+        onlyEventIDs:
+          - 256
+          - 257
+      - name: Microsoft-Windows-DNS-Client/Operational # if relevant server role
+        onlyEventIDs:
+          - 3008
+      - name: Microsoft-Windows-MPRMSG # not present on all versions of windows
+        onlyEventIDs:
+          - 20250
+          - 20274
+          - 20275
+      - name: Microsoft-Windows-CertificateServicesClient-Lifecycle-System/Operational
+      - name: Microsoft-Windows-CertificateServicesClient-Lifecycle-User/Operational
+        onlyEventIDs:
+          - 1001
+          - 1002
+          - 1003
+          - 1004
+          - 1006
+          - 1007
+      - name: Microsoft-Windows-Bits-Client/Operational
+#      - name: Microsoft-Windows-Ntfs/Operational
+      - name: Microsoft-Windows-Kernel-ShimEngine/Operational
+      - name: Microsoft-Windows-Kernel-General # not present in win 10
+        onlyEventIDs:
+          - 12
+          - 13
+      - name: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
+        onlyEventIDs:
+          - 2004 # event_id: 2004 This event is logged when a rule has been added to the Windows Firewall exception list
+          - 2005 # event_id: 2005 This event is logged when a rule has been modified in the Windows Firewall exception list
+          - 2006 # event_id: 2006 A rule has been deleted in the Windows Firewall exception list
+          - 2009 # event_id: 2009 The Windows Firewall service failed to load Group Policy 
+          - 2033 # event_id: 2033 All rules have been deleted from the Windows Firewall configuration on this computer     
+      - name: Microsoft-Windows-Kernel-PnP/Device Configuration # USB drive usage
+        onlyEventIDs:
+          - 400
+          - 410
+      - name: Microsoft-Windows-SMBServer/Security 
+      - name: Microsoft-Windows-SmbClient/Security
+      - name: Microsoft-Windows-Windows Defender/Operational
+      - name: Microsoft-Windows-AppLocker/Packaged app-Deployment
+        onlyEventIDs:
+          - 8020
+          - 8023
+          - 8025
+      - name: Microsoft-Windows-AppLocker/Packaged app-Execution
+        onlyEventIDs:
+          - 8022
+      - name: Microsoft-Windows-AppLocker/EXE and DLL # usefull for collecting data prior to enforcing any applocker rules, implementing GPO that limit execution from temp folder etc.
+        onlyEventIDs:
+          - 8002
+          - 8003
+          - 8004
+      - name: Microsoft-Windows-AppLocker/MSI and Script # usefull for collecting data prior to enforcing any block rules or implementing GPO that limits use of this feature
+        onlyEventIDs:
+          - 8005
+          - 8006
+          - 8007
+      - name: Microsoft-Windows-WinRM/Operational
+      - name: Microsoft-Windows-WMI-Activity/Operational
+      - name: Microsoft-Windows-LSA/Operational
+        onlyEventIDs:
+          - 300
+      - name: Windows PowerShell # https://resources.infosecinstitute.com/topic/powershell-remoting-artifacts-part-1/ https://nsfocusglobal.com/attack-and-defense-around-powershell-event-logging/
+        onlyEventIDs:
+          - 169
+          - 400
+          - 403
+          - 600
+          - 800
+      - name: Microsoft-Windows-PrintService/Operational
+        onlyEventIDs:
+          - 307
+      - name: Microsoft-Windows-PrintService/Admin # https://msandbu.org/printnightmare-cve-2021-1675/ 
+        onlyEventIDs:
+          - 326
+          - 808
+          - 31017
+      - name: Microsoft-Windows-PowerShell/Operational # https://resources.infosecinstitute.com/topic/powershell-remoting-artifacts-part-1/ https://nsfocusglobal.com/attack-and-defense-around-powershell-event-logging/
+        onlyEventIDs:
+          - 4103
+          - 4104
+          - 4105
+          - 4106
+          - 8193
+          - 8194
+          - 8197
+          - 24577
+          - 40961
+          - 40962
+          - 53504
+      - name: Microsoft-Windows-PowerShell/Analytic # must be enabled
+        onlyEventIDs:
+          - 142 # If WinRM is disabled on the remote server, this event is recorded when the client attempts to initiate a remote shell connection
+          - 32850 # records the user account authenticated for remote handling.
+          - 32867 # records each PowerShell input and output object exchanged during the remote handling of PowerShell, including protocol and version negotiation as well as command I/O. //
+          - 32868 # The objects are stored as XML-encoded hexadecimal strings in a field denoted “Payload data”. Such objects, because of the length, are often fragmented across multiple log messages
+      - name: Microsoft-Windows-SoftwareRestrictionPolicies
+        onlyEventIDs:
+          - 865
+          - 866
+          - 867
+          - 868
+          - 882
+      - name: Microsoft-Windows-Sysmon/Operational # recommended config https://github.com/Neo23x0/sysmon-config  or https://github.com/ion-storm/sysmon-config/blob/master/sysmonconfig-export.xml
+      - name: User32
+        onlyEventIDs:
+          - 1074 # # https://kb.eventtracker.com/evtpass/evtpages/EventId_1074_User32_46330.asp
+      - name: Microsoft-Windows-WindowsUpdateClient/Operational
+        onlyEventIDs:
+          - 20 # https://kb.eventtracker.com/evtpass/evtpages/EventId_20_Microsoft-Windows-WindowsUpdateClient_63351.asp
+          - 22 # https://kb.eventtracker.com/evtpass/evtpages/EventId_22_Microsoft-Windows-WindowsUpdateClient_63353.asp
+          - 24 # https://kb.eventtracker.com/evtpass/evtPages/EventId_24_Microsoft-Windows-WindowsUpdateClient_63355.asp
+          - 25 # https://kb.eventtracker.com/evtpass/evtpages/EventId_25_Microsoft-Windows-WindowsUpdateClient_63348.asp
+          - 31 # https://kb.eventtracker.com/evtpass/evtpages/EventId_31_Microsoft-Windows-WindowsUpdateClient_63347.asp
+          - 34 # https://kb.eventtracker.com/evtpass/evtPages/EventId_34_Microsoft-Windows-WindowsUpdateClient_63342.asp
+          - 35 # https://kb.eventtracker.com/evtpass/evtpages/EventId_35_Microsoft-Windows-WindowsUpdateClient_63343.asp
+      - name: Microsoft-Windows-VHDMP-Operational # mounted iso/VHD files
+        onlyEventIDs:
+          - 1 # Triggers when you mount a VHD (Virtual Hard Disk).
+          - 2 # Triggers when you unmount a VHD (Virtual Hard Disk).
+          - 12 # Contains information about the type, path, handle count of the mounted device.
+      - name: OAlerts # https://bromiley.medium.com/oalerts-the-microsoft-office-event-log-ad164e1eec0f
+        onlyEventIDs:
+          - 300
+      - name: Microsoft-Windows-Shell-Core/Operational
+        onlyEventIDs:
+          - 9707 # Detects the start of the execution of a process from both the “Software\Microsoft\Windows\CurrentVersion\Run” and “Software\Microsoft\Windows\CurrentVersion\RunOnce” registry keys with the full command line.
+          - 9708 # Detects when the aforementioned process finishes execution with the corresponding PID (Useful when the process is still running on the system).
+          - 28115 # Triggered when a shortcut is added to the “App Resolver Cache”. Indicates when an application is installed
+      - name: Microsoft-Windows-WinINet-Config/ProxyConfigChanged
+        onlyEventIDs:
+          - 5600 # Indicates change in the proxy configuration. For example if i change my proxy configuration from the “Internet Option” menu. The event will get generated.
+      - name: Microsoft-Windows-WLAN-AutoConfig/Operational # https://github.com/nsacyber/Event-Forwarding-Guidance/blob/master/Subscriptions/NT6/WifiActivity.xml
+        onlyEventIDs:
+          - 8000 # WLAN AutoConfig service started a connection to a wireless network https://kb.eventtracker.com/evtpass/evtpages/EventId_8000_Microsoft-Windows-WLAN-AutoConfig_61765.asp
+          - 8001 # Triggers when a successful connection to a wireless network occurs
+          - 8002
+          - 8003 # Triggers when we’re successfully disconnected from a wireless network
+          - 8011
+          - 10000
+          - 10001
+          - 11000
+          - 11001
+          - 11002
+          - 11004
+          - 11005
+          - 11006
+          - 11010
+          - 12011
+          - 12012
+          - 12013
+      - name: Microsoft-Windows-NetworkProfile/Operational
+        onlyEventIDs:
+          - 10000
+          - 10001
+      - name: Microsoft-Windows-Winlogon/Operational
+        onlyEventIDs:
+          - 811 
+          - 812 
+      - name: Microsoft-Windows-Partition/Diagnostic # #present win10 1709+ logs USB/drive serials ref https://df-stream.com/2018/05/partition-diagnostic-event-log-and-usb-device-tracking-p1/
+        onlyEventIDs:
+          - 1006
+      - name: Microsoft-Windows-PrintService/Operational # must be enabled to detect CVE 2021-1675 attempts failed and successfull https://twitter.com/MalwareJake/status/1410421445608476679
+      - name: Microsoft-Windows-CAPI2/Operational # must be enabled certificate related https://forums.ivanti.com/s/article/HOWTO-Enable-CAPI2-event-logging-for-investigating-certificate-related-issues?language=en_US
+        onlyEventIDs:
+          - 11
+          - 70
+          - 90
+      - name: Microsoft-Windows-GroupPolicy/Operational # event_id: 1126, 1129, 112 # related to GPO failing
+      - name: Microsoft-Windows-AAD/Operational # Azure AD related log
+      - name: Microsoft-Windows-Authentication/AuthenticationPolicyFailures-DomainController # must be enabled DC specific
+      - name: Microsoft-Windows-Authentication/ProtectedUser-Client # must be enabled
+      - name: Microsoft-Windows-Authentication/ProtectedUserFailures-DomainController # must be enabled DC specific
+      - name: Microsoft-Windows-Authentication/ProtectedUserSuccesses-DomainController # must be enabled DC specific
+      - name: Microsoft-Windows-DriverFrameworks-UserMode/Operational # drivers loaded   
+      - name: Microsoft-Windows-NTLM/Operational # usefull for detemining where ntml is used to disable it
+        onlyEventIDs:
+          - 8001
+          - 8002
+          - 8003
+          - 8004
+      - name: Microsoft-Windows-UniversalTelemetryClient/Operational
+        onlyEventIDs:
+          - 55
+      - name: Microsoft-Windows-Security-Mitigations/KernelMode # https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/exploit-protection?view=o365-worldwide
+    sink: humio
+sinks:
+  humio:
+    type: humio
+    token: "your repo token"
+    proxy: none 
+    url: https://cloud.humio.com/
