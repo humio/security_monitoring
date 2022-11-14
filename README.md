@@ -1,4 +1,4 @@
-# Windows Best Practice Security Monitoring
+# Windows Best Practice Monitoring
 A log collecting config that can form the basis of a windows based infrastructure Observability effort.
 
 Initially build from a security monitoring perspective the Logscal Logcollector config has been expanded to facilitate observability for OPS teams in general. 
