@@ -1,21 +1,24 @@
 # Windows Best Practice Security Monitoring
-A Winlogbeat config that can form the basis of a security monitoring data collection effort.
-This is an example of a way to implement and operationalize the NSAcyber / CFCS guidance on what to log on a windows based OS
+A log collecting config that can form the basis of a windows based infrastructure Observability effort.
+
+Initially build from a security monitoring perspective the Logscal Logcollector config has been expanded to facilitate observability for OPS teams in general. 
+
+Initially conceived as a way to implement and operationalize the NSAcyber / CFCS guidance on what to log on a windows based OS
 Addtional sources have been added to provide data needed to support detection capability and identify and adress misconfiguration.
 
 !! Make sure to read the notes within the config file itself at it contains changes that needs to be implemented in order to gain full value of the logs you are collecting and ensure that the relavant eventids are generated correctly prior to enabling the event forwarding. Remember to use the OSS Version of winlogbeat/logstash in conjuction with Humio !!
 
 ## Vision
 This project should provide an easy way to get started with collecting data from windowsbased platforms in order to 
-support SecOps and "Forensic Readiness" - before you need it, order for you to have it when you need it. By having relevant monitoring in place before during and after a given IT security incident.
+build observability for all OPS and provide "Forensic Readiness" - before you need it, order for you to have it when you need it. By having relevant monitoring in place before during and after a given incident.
 
-Addtionally the data collected can be leveraged in conjuction with sigma rules or custom streaming queries and alerts to proactivly hunt for TTP's in your infrastrucuture. 
+Addtionally the data collected can be leveraged in conjuction with sigma rules or custom streaming queries and alerts to proactivly hunt for TTP's in your infrastrucuture. In a similar fashion other ops teams can create alerting and dashboards of the data collected for their (non secops) use cases. the logdata can be used in diffrent use cases. Reguardless if its finding and fixing root cause, part of hardning efforts - having logs and the observability they provide on tab is a fundemental need for any OPS
 
-Another thing we aim to provide is the capability to prove what did not happen. Likewise, should there be a case where you want to "go back and validate" against new IOC data, published exploit being attempted (ex. via sigma rule) or determine how "deep" a given intrusion actually was.
+Addtionally we aim to provide is the capability to prove what did not happen. Likewise, should there be a case where you want to "go back and validate" against new IOC data, published exploit being attempted (ex. via sigma rule) or determine how "deep" a given intrusion actually was. Similarly for other OPS depts being able to rule out causes of incidents and poor performance helps.
 
 Lastly we hope collecting the log data can help day to day hardning efforts or answer questions in relation root cause analysis outside of SecOps use case. 
 
-Knowing your infrastructure better than an adversary translates into leverage, as you become able to spot their activity in the inital phases of the cyber kill chain.
+Knowing your infrastructure better than an adversary translates into leverage, as you become able to spot their activity in the inital phases of the cyber kill chain. Knowing your infrastructure is also key for all OPS teams in their day to day work with managing, building and changing infrastructure in a for the business safe and reliable manner.
 
 ## Governance
 This project is maintained by employees at Humio ApS.
