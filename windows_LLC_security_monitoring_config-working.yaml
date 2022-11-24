@@ -39,6 +39,7 @@
 # (In Danish) https://cfcs.dk/globalassets/cfcs/dokumenter/vejledninger/cfcs-vejledning-logning.pdf
 # https://github.com/TonyPhipps/SIEM/blob/master/Notable-Event-IDs.md
 # https://nasbench.medium.com/finding-forensic-goodness-in-obscure-windows-event-logs-60e978ea45a3
+# https://learn.microsoft.com/en-us/windows-server/identity/securing-privileged-access/reference-tools-logon-types
 dataDirectory: C:\ProgramData\CrowdStrike\Humio Log Collector\
 sources:
   wineventlog:
@@ -382,6 +383,13 @@ sources:
         onlyEventIDs:
           - 55
       - name: Microsoft-Windows-Security-Mitigations/KernelMode # https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/exploit-protection?view=o365-worldwide
+#     IIS logs
+#     !!must be enabled validate configuration is set correct
+#     https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd638620(v=ws.10)?redirectedfrom=MSDN
+#     https://learn.microsoft.com/en-us/iis/extensions/advanced-logging-module/advanced-logging-for-iis-real-time-logging?source=recommendations
+#     also add your folder with the filebased logs if you choose to do so.
+      - name: Microsoft-IIS-Configuration/Administrative # changes to configuration
+      - name: Microsoft-IIS-Logging/Logs
     sink: humio
 sinks:
   humio:
