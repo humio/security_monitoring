@@ -154,6 +154,7 @@ sources:
           - 5136 # 5136: A directory service object was modified https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5136
           - 5139 # 5139: A directory service object was moved https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5139
           - 5138 # 5138: A directory service object was undeleted https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5138
+          - 5156 # 5156: The Windows Filtering Platform has allowed a connection://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventID=5156          
           - 5038 # 5038: integrity determined that the image hash of a file is not valid https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5038
           - 6281 # 6281: Code Integrity determined that the page hashes of an image file are not valid https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6281
           - 4657 # 4657: A registry value was modified https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4657
