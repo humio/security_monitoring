@@ -62,6 +62,7 @@ sources:
           - 7031
           - 7032
           - 7034
+          - 7036 # a service has entered a stopped state
           - 7045
       - name: Application
         onlyEventIDs:
