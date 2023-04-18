@@ -394,10 +394,30 @@ sources:
 #     also add your folder with the filebased logs if you choose to do so.
       - name: Microsoft-IIS-Configuration/Administrative # changes to configuration
       - name: Microsoft-IIS-Logging/Logs
+      - name: Microsoft-Windows-LAPS/Operational # https://www.kaidojarvemets.com/windows-laps-eventids-and-xpath-queries/amp/
+        onlyEventIDs:
+          - 10003 # LAPS policy processing is now starting
+          - 10004 # LAPS policy processing succeeded
+          - 10005 # LAPS policy processing failed with an error code
+          - 10018 # LAPS successfully updated Active Directory with the new password
+          - 10020 # LAPS successfully updated the local admin account with the new password
+          - 10021 # LAPS Policy is configured to back up the password to Windows Server Active Directory.
+          - 10022 # LAPS Policy is configured to back up the password to Azure Active Directory
+          - 10023 # LAPS is configured to use a legacy Microsoft LAPS policy
+          - 10029 # LAPS successfully updated Azure Active Directory with the new password
+          - 10031 # LAPS blocked an external request that tried to modify the password of the current managed account
+          - 10033 # The machine is configured with legacy LAPS policy settings, but a legacy LAPS product is installed. 
+                  # The password will not be managed by Windows until the legacy product is uninstalled or newer LAPS policy settings are configured
+          - 10041 # LAPS detected a successful authentication for the currently managed account, and a background task has been scheduled for post-authentication actions
+          - 10042 # The post-authentication grace period expired per policy; configured post-authentication actions will now be executed
+          - 10043 # LAPS failed to reset the password for the currently managed account; the system will continue retrying the password reset operation.
+          - 10044 # LAPS successfully reset the password for the currently managed account and completed all configured post-authentication actions          
+          
+# output          
     sink: humio
 sinks:
   humio:
     type: humio
     token: "your repo token"
-    proxy: none 
+#   proxy: none # not needed in latest version of LLC  
     url: https://cloud.humio.com/ # insert relevant url ex community version 
